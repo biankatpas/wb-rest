@@ -26,20 +26,41 @@ public class HttpExemplo {
 	public static void main(String[] args) throws Exception {
  
 		HttpExemplo http = new HttpExemplo();
- 
-		System.out.println("Testing: send Http GET request");
-		String chamadaWS = "http://localhost:8084/Produto-WS/webresources/generic/usuario/get/biankatpas";
-                String json = http.sendGet(chamadaWS);
+                int test = 1;
                 
-                Gson g = new Gson();
-                Usuario u = new Usuario();
-                Type usuarioType = new TypeToken<Usuario>() {}.getType();
-                u = g.fromJson(json, usuarioType);
-                
-                System.out.println(u.getLogin());
-                System.out.println(u.getSenha());
-                System.out.println(u.getEmail());
-                System.out.println(u.getPerfil());
+                switch(test)
+                {
+                    case 1:
+                        System.out.println("Testing: send Http GET request");
+                        String chamadaWS = "http://localhost:8084/Produto-WS/webresources/generic/usuario/get/biankatpas";
+                        String json = http.sendGet(chamadaWS);
+
+                        Gson g = new Gson();
+                        Usuario u = new Usuario();
+                        Type usuarioType = new TypeToken<Usuario>() {}.getType();
+                        u = g.fromJson(json, usuarioType);
+
+                        System.out.println(u.getLogin());
+                        System.out.println(u.getSenha());
+                        System.out.println(u.getEmail());
+                        System.out.println(u.getPerfil());
+                        break;
+                    
+                    case 2:
+                        System.out.println("Testing: send Http PUT request");
+                        break;
+                        
+                    case 3:
+                        System.out.println("Testing: send Http DELETE request");
+                        break;
+                        
+                    case 4:
+                        System.out.println("Testing: send Http POST request");
+                        break;
+                        
+                    default:
+                        System.out.println("Opção invalida");
+                }
 		 
 	}
  

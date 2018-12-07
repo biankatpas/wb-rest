@@ -49,6 +49,4 @@ public class Usuario {
         this.perfil = perfil;
     }
     
-    
-    
 }

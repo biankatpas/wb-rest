@@ -13,7 +13,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
@@ -74,13 +76,40 @@ public class ProdutoWS {
         Gson g = new Gson();
         return g.toJson(lista);
     }
+       
+    @POST
+    @Consumes({"application/json"})
+    @Path("Usuario/inserir")
+    public boolean inserir(String content){
+        Gson g = new Gson();
+        Usuario u = (Usuario) g.fromJson(content, Usuario.class);
+        UsuarioDAO dao = new UsuarioDAO();  
+        return dao.inserir(u);
+}
 
     /**
      * PUT method for updating or creating an instance of ProdutoWS
      * @param content representation for the resource
      */
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    @Consumes("application/json")
+    @Path("Usuario/alterar")
+    public void alterar(String content) {
+        Gson g = new Gson();
+        Usuario u = (Usuario) g.fromJson(content, Usuario.class);
+        UsuarioDAO dao = new UsuarioDAO();  
+        dao.atualizar(u);
+    }
+    
+   @DELETE
+   @Path("Usuario/excluir/{login}")
+    public boolean excluir(@PathParam("login") String login)
+    {    
+        Usuario u = new Usuario();
+        u.setLogin(login);
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        u = dao.buscar(u);
+        return dao.excluir(u);
     }
 }

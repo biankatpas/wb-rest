@@ -46,8 +46,6 @@ public class UsuarioDAO {
             {
                 retorno = true;
             }
-                
-            
             
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,15 +87,12 @@ public class UsuarioDAO {
         Boolean retorno = false;
         PreparedStatement pst = Conexao.getPreparedStatement(sql);
         try {
-          
-           
+
             pst.setString(1, usuario.getLogin());
             if(pst.executeUpdate()>0)
             {
                 retorno = true;
             }
-                
-            
             
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,7 +110,6 @@ public class UsuarioDAO {
         
         PreparedStatement pst = Conexao.getPreparedStatement(sql);
         try {
-           
             
             ResultSet res = pst.executeQuery();
             while(res.next())
@@ -129,8 +123,6 @@ public class UsuarioDAO {
                 retorno.add(item);
             }
                
-            
-            
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             
@@ -138,11 +130,11 @@ public class UsuarioDAO {
         
         return retorno;
     
-    
     }
+
     public Usuario buscar(Usuario usuario)
     {
-         String sql = "SELECT * FROM usuario where login=?";
+        String sql = "SELECT * FROM usuario where login=?";
         Usuario retorno = null;
         
         PreparedStatement pst = Conexao.getPreparedStatement(sql);
@@ -159,10 +151,7 @@ public class UsuarioDAO {
                 retorno.setEmail(res.getString("email"));
                 retorno.setPerfil(res.getString("perfil"));
                 
-                
             }
-               
-            
             
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,8 +160,6 @@ public class UsuarioDAO {
         
         return retorno;
     
-    
     }
-
 
 }
