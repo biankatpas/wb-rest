@@ -6,6 +6,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import dao.ProdutoDAO;
 import dao.UsuarioDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import modelo.Produto;
 import modelo.Usuario;
 
 /**
@@ -49,6 +51,8 @@ public class ProdutoWS {
         return "Hello, Produto-WS!";
     }
     
+//    --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("usuario/get/{login}")
@@ -79,7 +83,7 @@ public class ProdutoWS {
        
     @POST
     @Consumes({"application/json"})
-    @Path("Usuario/inserir")
+    @Path("usuario/inserir")
     public boolean inserir(String content){
         Gson g = new Gson();
         Usuario u = (Usuario) g.fromJson(content, Usuario.class);
@@ -93,7 +97,7 @@ public class ProdutoWS {
      */
     @PUT
     @Consumes("application/json")
-    @Path("Usuario/alterar")
+    @Path("usuario/alterar")
     public void alterar(String content) {
         Gson g = new Gson();
         Usuario u = (Usuario) g.fromJson(content, Usuario.class);
@@ -102,7 +106,7 @@ public class ProdutoWS {
     }
     
    @DELETE
-   @Path("Usuario/excluir/{login}")
+   @Path("usuario/excluir/{login}")
     public boolean excluir(@PathParam("login") String login)
     {    
         Usuario u = new Usuario();
@@ -111,5 +115,71 @@ public class ProdutoWS {
         UsuarioDAO dao = new UsuarioDAO();
         u = dao.buscar(u);
         return dao.excluir(u);
+    }
+    
+//    --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("produto/get/{descricao}")
+    public String getProduto(@PathParam("descricao") String descricao)
+    {
+        Produto p = new Produto();
+        p.setDescricao(descricao);
+        
+        ProdutoDAO dao = new ProdutoDAO();
+        p = dao.buscar(p);
+        
+        Gson g = new Gson();
+        return g.toJson(p);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("produto/list")
+    public String listProdutos()
+    {
+        List<Produto> lista = new ArrayList<>();
+        ProdutoDAO dao = new ProdutoDAO();
+        lista = dao.listar();
+        
+        Gson g = new Gson();
+        return g.toJson(lista);
+    }
+
+    @POST
+    @Consumes({"application/json"})
+    @Path("produto/inserir")
+    public boolean inserirProduto(String content){
+        Gson g = new Gson();
+        Produto p = (Produto) g.fromJson(content, Produto.class);
+        ProdutoDAO dao = new ProdutoDAO();  
+        return dao.inserir(p);
+}
+
+    /**
+     * PUT method for updating or creating an instance of ProdutoWS
+     * @param content representation for the resource
+     */
+    @PUT
+    @Consumes("application/json")
+    @Path("produto/alterar")
+    public void alterarProduto(String content) {
+        Gson g = new Gson();
+        Produto p = (Produto) g.fromJson(content, Produto.class);
+        ProdutoDAO dao = new ProdutoDAO();  
+        dao.atualizar(p);
+    }
+    
+   @DELETE
+   @Path("produto/excluir/{descricao}")
+    public boolean excluirProduto(@PathParam("descricao") String descricao)
+    {    
+        Produto p = new Produto();
+        p.setDescricao(descricao);
+        
+        ProdutoDAO dao = new ProdutoDAO();
+        p = dao.buscar(p);
+        return dao.excluir(p);
     }
 }
