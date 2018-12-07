@@ -12,7 +12,7 @@ package modelo;
 public class Produto {
     
     private String descricao;
-    private String validade;
+    private String vencimento;
     private String vendedor;
 
     public String getDescricao() {
@@ -23,20 +23,20 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public String getValidade() {
-        return validade;
-    }
-
-    public void setValidade(String validade) {
-        this.validade = validade;
-    }
-
     public String getVendedor() {
         return vendedor;
     }
 
     public void setVendedor(String vendedor) {
         this.vendedor = vendedor;
+    }
+
+    public String getVencimento() {
+        return vencimento;
+    }
+
+    public void setVencimento(String vencimento) {
+        this.vencimento = vencimento;
     }
     
 }
