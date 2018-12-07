@@ -23,13 +23,13 @@ import modelo.Usuario;
  *
  * @author biankatpas
  */
-public class HttpExemplo {
+public class HttpTeste {
  
 	private final String USER_AGENT = "Mozilla/5.0";
  
 	public static void main(String[] args) throws Exception {
  
-		HttpExemplo http = new HttpExemplo();
+		HttpTeste http = new HttpTeste();
                 Gson g = new Gson();
                 
                 Usuario u = new Usuario();
